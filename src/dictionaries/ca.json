@@ -14,5 +14,6 @@
   "active_status": "Actiu",
   "expired_status": "Expirat",
   "loading_text": "Carregant...",
-  "error_loading": "Error al carregar els vehicles"
+  "error_loading": "Error al carregar els vehicles",
+  "exit_button": "Sortir"
 }

@@ -14,5 +14,6 @@
   "active_status": "Actiu",
   "expired_status": "Expirat",
   "loading_text": "Cargant...",
-  "error_loading": "Error en cargar es vehicles"
+  "error_loading": "Error en cargar es vehicles",
+  "exit_button": "Gésser"
 }

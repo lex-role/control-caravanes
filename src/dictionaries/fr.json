@@ -14,5 +14,6 @@
   "active_status": "Actif",
   "expired_status": "Expiré",
   "loading_text": "Chargement...",
-  "error_loading": "Erreur lors du chargement des véhicules"
+  "error_loading": "Erreur lors du chargement des véhicules",
+  "exit_button": "Sortir"
 }

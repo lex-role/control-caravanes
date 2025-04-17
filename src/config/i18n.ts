@@ -1,6 +1,6 @@
-export const defaultLocale = 'ca'
+export const defaultLocale = 'oc'
 
-export const locales = ['ca', 'es', 'en', 'fr', 'oc'] as const
+export const locales = ['oc', 'ca', 'es', 'en', 'fr'] as const
 export type Locale = typeof locales[number]
 
 export const dictionaries = {

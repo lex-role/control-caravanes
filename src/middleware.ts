@@ -14,10 +14,10 @@ export function middleware(request: NextRequest) {
 
   // Obtener el idioma preferido del navegador
   const browserLocale =
-    request.headers.get("accept-language")?.split(",")[0].split("-")[0] || "ca";
+    request.headers.get("accept-language")?.split(",")[0].split("-")[0] || "oc";
   const defaultLocale = locales.includes(browserLocale as Locale)
     ? (browserLocale as Locale)
-    : "ca";
+    : "oc";
 
   // Redirigir a la ruta con el idioma
   request.nextUrl.pathname = `/${defaultLocale}${pathname}`;

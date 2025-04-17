@@ -7,12 +7,14 @@ import { locales, Locale } from '@/config/i18n'
 type LanguageSwitcherProps = {
   currentLang: Locale
   dict: {
-    dashboard_button: string
+      dashboard_button: string
+      exit_button: string
   }
 }
 
 export default function LanguageSwitcher({ currentLang, dict }: LanguageSwitcherProps) {
-  const pathname = usePathname()
+    const pathname = usePathname()
+    const isDashboard = pathname.includes('/dashboard')
 
   return (
     <header className="w-full bg-white shadow-sm">
@@ -32,12 +34,15 @@ export default function LanguageSwitcher({ currentLang, dict }: LanguageSwitcher
             </Link>
           ))}
         </div>
-        <Link
-          href={`/${currentLang}/dashboard`}
-          className="px-6 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 transition-colors"
-        >
-          {dict.dashboard_button}
-        </Link>
+              <Link
+                  href={isDashboard ? `/${currentLang}` : `/${currentLang}/dashboard`}
+                  className={`px-6 py-2 text-white rounded transition-colors ${isDashboard
+                          ? 'bg-orange-700 hover:bg-orange-800'
+                          : 'bg-teal-500 hover:bg-teal-600'
+                      }`}
+              >
+                  {isDashboard ? dict.exit_button : dict.dashboard_button}
+              </Link>
       </nav>
     </header>
   )
