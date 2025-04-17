@@ -1,5 +1,18 @@
 {
   "title": "Welcome to the caravan area",
-  "description": "Register your license plate to start counting time.",
-  "register_button": "Register your license plate"
+  "description": "Register your license plate to start counting time",
+  "register_button": "Register plate",
+  "plate_placeholder": "Enter license plate (eg: 1234ABC)",
+  "success_message": "Vehicle registered successfully",
+  "error_generic": "Error registering vehicle",
+  "error_already_registered": "This vehicle is already registered",
+  "dashboard_title": "Control Panel",
+  "dashboard_button": "Dashboard",
+  "plate_header": "License Plate",
+  "time_header": "Time",
+  "status_header": "Status",
+  "active_status": "Active",
+  "expired_status": "Expired",
+  "loading_text": "Loading...",
+  "error_loading": "Error loading vehicles"
 }

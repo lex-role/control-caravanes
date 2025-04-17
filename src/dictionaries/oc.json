@@ -1,5 +1,18 @@
 {
-  "title": "Benvingut ara zòna de caravanes",
-  "description": "Registre era tua matrícula entà començar a compdar eth temps.",
-  "register_button": "Registre era tua matrícula"
+  "title": "Benvengut ara zòna de caravanes",
+  "description": "Registre era tua matricula entà començar a compdar eth temps",
+  "register_button": "Registrar matricula",
+  "plate_placeholder": "Introdusís era matricula (ex: 1234ABC)",
+  "success_message": "Vehicle registrat corrèctament",
+  "error_generic": "Error en registrar eth vehicle",
+  "error_already_registered": "Aguest vehicle ja ei registrat",
+  "dashboard_title": "Panèu de Contraròtle",
+  "dashboard_button": "Panèu de Contraròtle",
+  "plate_header": "Matricula",
+  "time_header": "Temps",
+  "status_header": "Estat",
+  "active_status": "Actiu",
+  "expired_status": "Expirat",
+  "loading_text": "Cargant...",
+  "error_loading": "Error en cargar es vehicles"
 }

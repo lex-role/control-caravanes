@@ -1,5 +1,18 @@
 {
   "title": "Bienvenue dans la zone de caravanes",
-  "description": "Enregistrez votre plaque d'immatriculation pour commencer à compter le temps.",
-  "register_button": "Enregistrez votre plaque"
+  "description": "Enregistrez votre plaque d'immatriculation pour commencer à compter le temps",
+  "register_button": "Enregistrer la plaque",
+  "plate_placeholder": "Entrez la plaque (ex: 1234ABC)",
+  "success_message": "Véhicule enregistré avec succès",
+  "error_generic": "Erreur lors de l'enregistrement du véhicule",
+  "error_already_registered": "Ce véhicule est déjà enregistré",
+  "dashboard_title": "Tableau de Bord",
+  "dashboard_button": "Tableau de Bord",
+  "plate_header": "Plaque",
+  "time_header": "Temps",
+  "status_header": "État",
+  "active_status": "Actif",
+  "expired_status": "Expiré",
+  "loading_text": "Chargement...",
+  "error_loading": "Erreur lors du chargement des véhicules"
 }

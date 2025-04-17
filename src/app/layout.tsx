@@ -1,18 +1,19 @@
-import './globals.css';
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import './globals.css'
+import type { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Control Caravanes',
   description: 'App per gestionar l\'àrea de caravanes',
-};
+}
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="ca">
-      <body>
-        <LanguageSwitcher />
-        {children}
-      </body>
+    <html suppressHydrationWarning>
+      <body>{children}</body>
     </html>
-  );
+  )
 }

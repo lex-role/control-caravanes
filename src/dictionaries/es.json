@@ -1,5 +1,18 @@
 {
   "title": "Bienvenido al área de caravanas",
-  "description": "Registra tu matrícula para empezar a contar el tiempo.",
-  "register_button": "Registra tu matrícula"
+  "description": "Registra tu matrícula para empezar a contar el tiempo",
+  "register_button": "Registrar matrícula",
+  "plate_placeholder": "Introduce la matrícula (ej: 1234ABC)",
+  "success_message": "Vehículo registrado correctamente",
+  "error_generic": "Error al registrar el vehículo",
+  "error_already_registered": "Este vehículo ya está registrado",
+  "dashboard_title": "Panel de Control",
+  "dashboard_button": "Panel de Control",
+  "plate_header": "Matrícula",
+  "time_header": "Tiempo",
+  "status_header": "Estado",
+  "active_status": "Activo",
+  "expired_status": "Expirado",
+  "loading_text": "Cargando...",
+  "error_loading": "Error al cargar los vehículos"
 }

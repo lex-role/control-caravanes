@@ -1,19 +1,23 @@
-import { Locale, locales } from '@/config/i18n'
+import { Locale } from '@/config/i18n'
+import { dictionaries } from '@/config/i18n'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
-export async function generateStaticParams() {
-  return locales.map((lang) => ({ lang }))
-}
 
-export default function Layout({
+export default async function Layout({
   children,
-  params: { lang }
+  params: { lang },
 }: {
   children: React.ReactNode
   params: { lang: Locale }
 }) {
+  const dict = await dictionaries[lang]()
+
   return (
-    <html lang={lang}>
-      <body>{children}</body>
-    </html>
+    <div className="min-h-screen bg-gray-50">
+      <LanguageSwitcher currentLang={lang} dict={dict} />
+      <main className="container mx-auto px-4 py-8">
+        {children}
+      </main>
+    </div>
   )
 }
