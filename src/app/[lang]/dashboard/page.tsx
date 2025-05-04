@@ -11,7 +11,7 @@ export default async function DashboardPage({
 
   return (
     <main className="p-8">
-      <h1 className="text-3xl font-bold mb-6">{dict.dashboard_title}</h1>
+      <h1 className="text-3xl font-bold text-blue-500 mb-6">{dict.dashboard_title}</h1>
       <DashboardView dict={dict} lang={lang} />
     </main>
   )

@@ -79,50 +79,87 @@ export default function DashboardView({ dict, lang }: DashboardViewProps) {
   const MAX_TIME = 72 * 60 * 60 * 1000 // 72 horas en milisegundos
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white shadow-md rounded-lg">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {dict.plate_header}
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {dict.time_header}
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {dict.status_header}
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          {vehicles.map((vehicle) => {
-            const timeElapsed = formatDistanceToNow(new Date(vehicle.entryTime), {
-              addSuffix: true,
-              locale: locales[lang]
-            })
-            const isExpired = new Date(vehicle.entryTime).getTime() + MAX_TIME < Date.now()
+    <div className="w-full">
+      {/* Vista de tabla para desktop */}
+      <div className="hidden sm:block overflow-x-auto">
+        <table className="min-w-full bg-white shadow-md rounded-lg">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {dict.plate_header}
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {dict.time_header}
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {dict.status_header}
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {vehicles.map((vehicle) => {
+              const timeElapsed = formatDistanceToNow(new Date(vehicle.entryTime), {
+                addSuffix: true,
+                locale: locales[lang]
+              })
+              const isExpired = new Date(vehicle.entryTime).getTime() + MAX_TIME < Date.now()
 
-            return (
-              <tr 
-                key={vehicle.id} 
-                className={isExpired ? 'bg-red-100' : ''}
-              >
-                <td className="px-6 py-4 whitespace-nowrap">{vehicle.plate}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{timeElapsed}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span 
-                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      isExpired ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                    }`}
-                  >
-                    {isExpired ? dict.expired_status : dict.active_status}
-                  </span>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+              return (
+                <tr 
+                  key={vehicle.id} 
+                  className={isExpired ? 'bg-red-50' : 'hover:bg-gray-50'}
+                >
+                      <td className="px-6 py-4 text-gray-500 whitespace-nowrap">{vehicle.plate}</td>
+                      <td className="px-6 py-4 text-gray-500 whitespace-nowrap">{timeElapsed}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span 
+                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        isExpired ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                      }`}
+                    >
+                      {isExpired ? dict.expired_status : dict.active_status}
+                    </span>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Vista de tarjetas para móvil */}
+      <div className="grid grid-cols-1 gap-4 sm:hidden">
+        {vehicles.map((vehicle) => {
+          const timeElapsed = formatDistanceToNow(new Date(vehicle.entryTime), {
+            addSuffix: true,
+            locale: locales[lang]
+          })
+          const isExpired = new Date(vehicle.entryTime).getTime() + MAX_TIME < Date.now()
+
+          return (
+            <div
+              key={vehicle.id}
+              className={`bg-white p-4 rounded-lg shadow-md ${
+                isExpired ? 'border-l-4 border-red-500' : 'border-l-4 border-green-500'
+              }`}
+            >
+              <div className="flex justify-between items-start mb-2">
+                <div className="text-lg font-semibold text-gray-500">{vehicle.plate}</div>
+                <span 
+                  className={`px-2 text-xs font-semibold rounded-full ${
+                    isExpired ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                  }`}
+                >
+                  {isExpired ? dict.expired_status : dict.active_status}
+                </span>
+              </div>
+              <div className="text-sm text-gray-600">
+                <span className="font-medium">{dict.time_header}:</span> {timeElapsed}
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
