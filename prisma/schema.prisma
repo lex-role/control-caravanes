@@ -14,13 +14,18 @@ datasource db {
 }
 
 model Vehicle {
-  id          String   @id @default(cuid())
-  plate       String   @unique
-  entryTime   DateTime @default(now())
+  id          String    @id @default(cuid())
+  plate       String    
+  entryTime   DateTime  @default(now())
   exitTime    DateTime?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  // Eliminamos @unique de plate para permitir registros históricos
+  // Añadimos índices para mejorar las búsquedas
+  @@index([plate])
+  @@index([isActive])
+  @@index([exitTime])
 }
 
 model User {

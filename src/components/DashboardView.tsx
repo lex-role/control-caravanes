@@ -41,6 +41,9 @@ type DashboardViewProps = {
     expired_status: string
     loading_text: string
     error_loading: string
+    exit_button: string
+    exit_loading: string
+    exit_error: string
   }
   lang: SupportedLocale
 }
@@ -49,6 +52,7 @@ export default function DashboardView({ dict, lang }: DashboardViewProps) {
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [actionLoading, setActionLoading] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -72,6 +76,29 @@ export default function DashboardView({ dict, lang }: DashboardViewProps) {
     const interval = setInterval(fetchVehicles, 60000) // Actualizar cada minuto
     return () => clearInterval(interval)
   }, [dict.error_loading, lang]) // Añadimos lang como dependencia
+
+  const handleExitVehicle = async (vehicleId: string) => {
+    setActionLoading(vehicleId)
+    try {
+      const response = await fetch(`/api/vehicles/${vehicleId}/exit`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error('Error registering exit')
+      }
+
+      // Actualizamos la lista local
+      setVehicles(vehicles.filter(v => v.id !== vehicleId))
+    } catch (error) {
+      console.error('Error:', error)
+    } finally {
+      setActionLoading(null)
+    }
+  }
 
   if (loading) return <div className="text-center">{dict.loading_text}</div>
   if (error) return <div className="text-red-600 text-center">{error}</div>
@@ -105,20 +132,23 @@ export default function DashboardView({ dict, lang }: DashboardViewProps) {
               const isExpired = new Date(vehicle.entryTime).getTime() + MAX_TIME < Date.now()
 
               return (
-                <tr 
-                  key={vehicle.id} 
-                  className={isExpired ? 'bg-red-50' : 'hover:bg-gray-50'}
-                >
-                      <td className="px-6 py-4 text-gray-500 whitespace-nowrap">{vehicle.plate}</td>
-                      <td className="px-6 py-4 text-gray-500 whitespace-nowrap">{timeElapsed}</td>
+                <tr key={vehicle.id} className={isExpired ? 'bg-red-50' : 'hover:bg-gray-50'}>
+                  <td className="px-6 py-4 text-gray-500 whitespace-nowrap">{vehicle.plate}</td>
+                  <td className="px-6 py-4 text-gray-500 whitespace-nowrap">{timeElapsed}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span 
-                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        isExpired ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                      }`}
-                    >
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${isExpired ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                      }`}>
                       {isExpired ? dict.expired_status : dict.active_status}
                     </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <button
+                      onClick={() => handleExitVehicle(vehicle.id)}
+                      disabled={actionLoading === vehicle.id}
+                      className="px-3 py-1 text-sm text-white bg-red-500 hover:bg-red-600 rounded transition-colors disabled:bg-gray-400"
+                    >
+                      {actionLoading === vehicle.id ? dict.exit_loading : dict.exit_button}
+                    </button>
                   </td>
                 </tr>
               )
@@ -137,21 +167,23 @@ export default function DashboardView({ dict, lang }: DashboardViewProps) {
           const isExpired = new Date(vehicle.entryTime).getTime() + MAX_TIME < Date.now()
 
           return (
-            <div
-              key={vehicle.id}
-              className={`bg-white p-4 rounded-lg shadow-md ${
-                isExpired ? 'border-l-4 border-red-500' : 'border-l-4 border-green-500'
-              }`}
-            >
+            <div key={vehicle.id} className={`bg-white p-4 rounded-lg shadow-md ${isExpired ? 'border-l-4 border-red-500' : 'border-l-4 border-green-500'
+              }`}>
               <div className="flex justify-between items-start mb-2">
                 <div className="text-lg font-semibold text-gray-500">{vehicle.plate}</div>
-                <span 
-                  className={`px-2 text-xs font-semibold rounded-full ${
-                    isExpired ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                  }`}
-                >
-                  {isExpired ? dict.expired_status : dict.active_status}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className={`px-2 text-xs font-semibold rounded-full ${isExpired ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                    }`}>
+                    {isExpired ? dict.expired_status : dict.active_status}
+                  </span>
+                  <button
+                    onClick={() => handleExitVehicle(vehicle.id)}
+                    disabled={actionLoading === vehicle.id}
+                    className="px-3 py-1 text-sm text-white bg-red-500 hover:bg-red-600 rounded transition-colors disabled:bg-gray-400"
+                  >
+                    {actionLoading === vehicle.id ? dict.exit_loading : dict.exit_button}
+                  </button>
+                </div>
               </div>
               <div className="text-sm text-gray-600">
                 <span className="font-medium">{dict.time_header}:</span> {timeElapsed}
