@@ -1,57 +1,61 @@
-# Control Caravanes — Desplegament amb Docker
+# Control Caravanes — Desplegament amb Docker (SQLite)
 
-Aquest projecte és una aplicació Next.js amb Prisma i una base de dades MySQL. A continuació tens les instruccions per desplegar-lo amb Docker.
+Aquest projecte és una aplicació Next.js amb Prisma que utilitza SQLite com a base de dades. A continuació tens les instruccions per desplegar-lo amb Docker.
 
 ## Requisits
 
-- Docker
-- Docker Compose
+* Docker
+* Docker Compose
 
 ## Configuració
 
-1. Crea un fitxer `.env` a l'arrel del projecte amb el contingut següent (potser ja el tens, revisa-ho):
+1. Crea un fitxer `.env` a l'arrel del projecte amb aquesta línia:
 
-    ```env
-    DATABASE_URL="mysql://user:password@db:3306/nom_base_de_dades"
-    DATABASE_NAME=nom_base_de_dades
-    DATABASE_USER=user
-    DATABASE_PASSWORD=password
-    DATABASE_ROOT_PASSWORD=rootpassword
-    ```
+   ```env
+   DATABASE_URL="file:./dev.db"
+   ```
 
-2. Modifica les variables amb els teus valors reals.
+2. Assegura't que al fitxer `prisma/schema.prisma` el `provider` sigui `sqlite`:
+
+   ```prisma
+   datasource db {
+     provider = "sqlite"
+     url      = env("DATABASE_URL")
+   }
+   ```
 
 ## Com executar amb Docker
 
-1. Compila i aixeca els contenidors:
+1. Compila i aixeca el contenidor:
 
-    ```bash
-    docker-compose up --build
-    ```
+   ```bash
+   docker-compose up --build
+   ```
 
-2. Aplica les migracions de Prisma:
+2. Aplica les migracions de Prisma (només la primera vegada o si n'hi ha de noves):
 
-    ```bash
-    docker-compose exec web npx prisma migrate deploy
-    ```
+   ```bash
+   docker-compose exec web npx prisma migrate dev
+   ```
 
-3. L'aplicació estarà disponible a [http://localhost:3000](http://localhost:3000).
+3. L'aplicació estarà disponible a [http://localhost:3200](http://localhost:3200).
 
 ## Altres comandes útils
 
-- Accedir a la base de dades:
+* Regenerar el client Prisma (si canvies l'esquema):
 
-    ```bash
-    docker-compose exec db mysql -u user -p
-    ```
+  ```bash
+  docker-compose exec web npx prisma generate
+  ```
 
-- Aturar els serveis:
+* Aturar l'aplicació:
 
-    ```bash
-    docker-compose down
-    ```
+  ```bash
+  docker-compose down
+  ```
 
 ## Notes
 
-- El volum `db_data` persisteix les dades de MySQL.
-- Qualsevol canvi de codi es reflecteix gràcies al muntatge del directori local amb `volumes`.
+* SQLite desa la base de dades en un fitxer local (`dev.db`).
+* Ideal per desenvolupament, però no es recomana per a entorns de producció.
+* Pots afegir `dev.db` al `.gitignore` si no vols incloure'l al repositori.
