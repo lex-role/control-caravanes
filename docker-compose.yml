@@ -2,11 +2,11 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     ports:
       - "3200:3000"
     volumes:
-      - .:/app
+      - .:/appCaravanes
     environment:
       - DATABASE_URL=file:./dev.db
     restart: unless-stopped

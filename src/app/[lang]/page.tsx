@@ -4,13 +4,13 @@ import { dictionaries } from '@/config/i18n'
 import Image from 'next/image'
 import signalImage from '@/images/signal.png'
 
-export default async function Home({
-  params,
-}: {
-  params: { lang: Locale }
-}) {
-  const { lang } = params
-  const dict = await dictionaries[lang]()
+type PageProps = {
+  params: Promise<{ lang: Locale }>
+}
+
+export default async function Home(props: PageProps) {
+  const params = await props.params
+  const dict = await dictionaries[params.lang]()
 
   return (
     <main className="flex flex-col items-center justify-top min-h-screen max-h-screen bg-gray-100">
@@ -31,7 +31,7 @@ export default async function Home({
         <p className="text-lg text-gray-700 mb-8 text-center">
           {dict.description}
         </p>
-        <RegistrationForm dict={dict} lang={lang} />
+        <RegistrationForm dict={dict} lang={params.lang} />
       </div>
     </main>
   )

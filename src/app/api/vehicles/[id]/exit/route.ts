@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest) {
   try {
+    // Obtener el id de la URL
+    const id = request.nextUrl.pathname.split("/").slice(-2, -1)[0];
+
     const vehicle = await prisma.vehicle.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         isActive: false,
         exitTime: new Date(),
