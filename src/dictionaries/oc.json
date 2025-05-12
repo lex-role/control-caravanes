@@ -15,5 +15,7 @@
   "expired_status": "Expirat",
   "loading_text": "Cargant...",
   "error_loading": "Error en cargar es vehicles",
-  "exit_button": "Gésser"
+  "exit_button": "Gésser",
+  "exit_loading": "Gessent...",
+  "exit_error": "Error en registrar era gessuda"
 }

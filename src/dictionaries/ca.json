@@ -15,5 +15,7 @@
   "expired_status": "Expirat",
   "loading_text": "Carregant...",
   "error_loading": "Error al carregar els vehicles",
-  "exit_button": "Sortir"
+  "exit_button": "Sortir",
+  "exit_loading": "Sortint...",
+  "exit_error": "Error en registrar la sortida"
 }

@@ -15,5 +15,7 @@
   "expired_status": "Expired",
   "loading_text": "Loading...",
   "error_loading": "Error loading vehicles",
-  "exit_button": "Exit"
+  "exit_button": "Exit",
+  "exit_loading": "Exiting...",
+  "exit_error": "Error registering exit"
 }
